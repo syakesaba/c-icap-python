@@ -1,0 +1,81 @@
+/*
+Graphviz - DOT language writing!
+dot -Tjpg this.dot -o this.jpg
+*/
+
+digraph Diagram {
+    PROFILE [label = "c-icap-python の フロー", shape=none];
+    nodesep=0.1;
+    //デフォルトノード
+    node [fontsize=10];
+    //デフォルトエッジ
+    edge [fontsize=9];
+
+
+    START [shape=doublecircle]
+
+    START -> init_handler [label="サーバ起動"]
+
+    //c-icap module.h
+    subgraph clusterModuleFunctions {
+        label = "モジュール側";
+        style = bold;
+        init_handler [label="init_python_handler"];
+        load_module [label="load_python_module"];
+        post_init_handler [label="post_init_python_handler"];
+        release_handler [label="release_python_handler"];
+    }
+    //c-icap service.h
+    subgraph clusterServiceFunctions {
+        label = "サービス側";
+        init_service [label="python_init_python_service"];
+        post_init_service [label="python_post_init_python_service"];
+
+        subgraph clusterRunningFunctions {
+            label = "実行部";
+            init_request_data [label="python_init_request_data"];
+            check_preview_handler [label="python_check_preview_handler"];
+            service_io [label="python_service_io"];
+            end_of_data [label="python_end_of_data"];
+            release_request_data [label="python_release_request_data"];
+        }
+
+        close_service [label="python_close_service"];
+    }
+
+    {edge[style=invis]; //透明アローで、配置を近くする
+        {init_handler load_module} -> {init_service post_init_service};
+    }
+
+    subgraph clusterInitFlow {
+        init_handler -> load_module;
+        load_module -> init_service [label=""];
+        init_service -> post_init_handler [label=""];
+        post_init_handler -> post_init_service [label=""];
+    }
+
+    post_init_service -> init_request_data [label=""]
+
+    subgraph clusterRunFlow {
+        init_request_data -> check_preview_handler [label=""];
+        check_preview_handler -> service_io [label=""];
+        service_io -> end_of_data [label=""];
+        end_of_data -> release_request_data [label=""];
+
+        release_request_data -> init_request_data [label="ICAPリクエスト到着ループ"];//ループ
+    }
+
+    SIGTERM [shape=doublecircle, label="TEMRINATE"]
+
+    subgraph HaltFlow {
+        SIGTERM -> close_service [label=""];
+        close_service -> release_handler [label=""];
+    }
+
+    END [shape=doublecircle];
+
+    release_handler -> END [label="サーバの停止"];
+
+    { rank=same; START END } //配置を一緒の階層にする
+
+}
