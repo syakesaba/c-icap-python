@@ -34,13 +34,16 @@ make install;
 brew edit squid
 ```
 and append options to args
->    args = %W[
->      ***snip!***
->      --prefix=/usr/local/squid
->      --enable-ssl
->      --enable-ssl-crtd
->      --enable-icap-client
->    ]
+```ruby
+    args = %W[
+      ***snip!***
+      --prefix=/usr/local/squid
+      --enable-ssl
+      --enable-ssl-crtd
+      --enable-icap-client
+    ]
+```conf
+
 #### squid.conf
 append
 ```conf
