@@ -38,7 +38,7 @@
 
 #ifndef DEBUG
 #define pyci_debug_printf(lev,msg, ...)  \
-        ci_debug_printf(lev, msg"\n", ## __VA_ARGS__)
+        ci_debug_printf(lev, "_PYCI_"msg"\n", ## __VA_ARGS__)
 #endif
 
 #endif /* PYCI_DEBUG_H_ */

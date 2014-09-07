@@ -25,28 +25,20 @@
 #include "../pyci_debug.h"
 #include "../pyci_script.h"
 
-/*
- * ================================================================
- * Prev is <- ../pyci_module/load_module.c
- * Next is -> ../pyci_module/post_init_handler.c
- * ================================================================
- */
-
-/*
- * ICAPが起動した直後一度だけ動作する関数
- * ここではスクリプトが示したsrv_xdataに関係する情報をSquidに送りたい。
- * return CI_OK on success, CI_ERROR on any error
+/**
+ * First load function at initializing service.<br>
+ *
+ * Prev hook: pyci_module/load_module.c<br>
+ * Next hook: pyci_module/post_init_handler.c<br>
+ *
+ * @param srv_xdata is a pointer to service extra_data.
+ * @param server_conf is a pointer to service configurations data.
+ * @return CI_OK if success else CI_ERROR.
  */
 int python_init_service(ci_service_xdata_t *srv_xdata, struct ci_server_conf *server_conf) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
-
+    /*
     PyObject * pIStag;
-
-    /* ===================================================
-     *  Pythonスクリプトから、ISTAGを取得する処理（ないならスルー）
-     *    TODO: ユーザが大量の文字数を指定してきたとき、AsStringが危険。クラウド公開できない。
-     * ===================================================
-     */
     char * istag;
     if (! PyObject_HasAttrString(pClass, PYCI_CLASS_STRING_SERVICE_ISTAG)) {
         goto istag_ignore;//E+ N
@@ -83,44 +75,35 @@ if (PyErr_Occurred()) {
         return CI_ERROR;
     }
     Py_XDECREF(pIStag);
-
-    //TODO: 全部送っちゃったら多少データ量が多くなる。必要に応じてadd_xoptsを追加する。
-    //色々な識別子
+    */
     ci_service_set_xopts(srv_xdata,
             CI_XCLIENTIP | CI_XSERVERIP | CI_XSUBSCRIBERID|
             CI_XAUTHENTICATEDUSER | CI_XAUTHENTICATEDGROUPS);
 
-    //TODO: 全部（略
-    //ICAPに送ってきてもいいけど、previewするわ、っていう拡張子
+    //extensions to preview.
     ci_service_set_transfer_preview(srv_xdata, "*");
     //ci_service_set_transfer_preview(srv_xdata,"html,js,php,cgi,");
 
-    //TODO: 全部（略
-    //ICAPに送ってこないで　っていう拡張子
+    //extensions to ignore
     ci_service_set_transfer_ignore(srv_xdata,"");
     //ci_service_set_transfer_ignore(srv_xdata,"zip, tar");
 
-    //TODO: 全（略
-    //previewせず、全部もらう拡張子
+    //extensions to no preview send me ALL!!
     ci_service_set_transfer_complete(srv_xdata,"");
 
-    //TODO: スクリプトの平均実行時間によってTTLを設定し、タイムアウトを実装する
+    //TTL
     ci_service_set_options_ttl(srv_xdata, 3600);
 
-    //TODO: スクリプトからとってくる
-    //自分のXINCLUDEを追加できる！イイネ！！
+    //extra-INCLUDE header..
     ci_service_add_xincludes(srv_xdata, NULL);
 
-    /* previwサイズ。そのまんま。*/
-    /* 1024という数字は、どうなのだろう */
+    //preview size
     ci_service_set_preview(srv_xdata, 1024);
 
-    /*Tell to the icap clients that we support 204 responses*/
-    /* そのまんま */
+    // Tell to the icap clients that we support 204 responses
     ci_service_enable_204(srv_xdata);
 
-    /*Tell to the icap clients that we support 204 responses*/
-    /* そのまんま */
+    // Tell to the icap clients that we support 204 responses*/
     ci_service_enable_206(srv_xdata);
 
     return CI_OK;

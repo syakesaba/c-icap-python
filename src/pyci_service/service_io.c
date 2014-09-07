@@ -19,12 +19,18 @@
 #include <Python.h>
 #include "c_icap/request.h"
 
+#include "../pyci_module.h"
+#include "../pyci_service.h"
 #include "../pyci_script.h"
 #include "../pyci_debug.h"
 
 //rlen,wlenもポインタになっていることに注意！
 int python_service_io(char * wbuf, int * wlen, char * rbuf, int * rlen, int iseof, ci_request_t * req) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
+    //get sub interp
+    pyci_service_data_t * service_data = (pyci_service_data_t *)(req->service_data);
+    // hold GIL
+    PyThreadState_Swap(service_data->pThreadState);
 
     PyObject * pInstance = (PyObject *)ci_service_data(req);
 
@@ -122,5 +128,7 @@ service_io_out_error:
     }
     Py_XDECREF(pRet);
     Py_XDECREF(pMethod);
+    //release GIL
+    PyThreadState_Swap(NULL);
     return ret;
 }

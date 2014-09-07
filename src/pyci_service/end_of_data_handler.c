@@ -21,12 +21,19 @@
 #include "c_icap/request.h"
 #include "c_icap/simple_api.h"
 
+#include "../pyci_module.h"
+#include "../pyci_service.h"
 #include "../pyci_script.h"
 #include "../pyci_debug.h"
 #include "./utils/pyci_service_util.h"
 
 int python_end_of_data_handler(ci_request_t *req) {
     pyci_debug_printf(PYCI_INFO_LEVEL, "");
+    //get sub interp
+    pyci_service_data_t * service_data = (pyci_service_data_t *)(req->service_data);
+    // hold GIL
+    PyThreadState_Swap(service_data->pThreadState);
+
     PyObject * pInstance = (PyObject *)ci_service_data(req);
     PyObject * pMethod = PyObject_GetAttrString(pInstance,PYCI_CLASS_METHOD_HANDLE_END_OF_DATA);//E+
     PyObject * pRet = NULL;
@@ -47,6 +54,8 @@ int python_end_of_data_handler(ci_request_t *req) {
             if (!ci_req_sent_data(req)) {
                 replace_headers(req);
             }
+            //release GIL
+            PyThreadState_Swap(NULL);
             return ret_end_of_data; /* #############################3成功ならばここが唯一の脱出口 */
         } else {
             pyci_debug_printf(PYCI_ERROR_LEVEL,"Error in calling function "PYCI_CLASS_METHOD_HANDLE_END_OF_DATA);
@@ -61,6 +70,7 @@ end_of_data_error:
     }
     Py_XDECREF(pMethod);
     Py_XDECREF(pRet);
-
+    //release GIL
+    PyThreadState_Swap(NULL);
     return CI_MOD_ERROR;
 }

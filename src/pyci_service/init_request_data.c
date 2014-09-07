@@ -20,14 +20,16 @@
 #include "c_icap/c-icap.h"
 #include "c_icap/simple_api.h"
 
+#include "../pyci_module.h"
+#include "../pyci_service.h"
 #include "../pyci_script.h"
 #include "../pyci_module.h"
 #include "../pyci_debug.h"
 
-/*
- * ICAPリクエストが到着する度に呼び出される。
- * ここでPythonクラスをインスタンスに変え、
- * 一つのICAPトランザクションで共有する。
+/**
+ * make instance from pClass.
+ *
+ * @param req is pointer to ci_request_t holds request data.
  */
 void *python_init_request_data(ci_request_t *req) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
@@ -37,12 +39,12 @@ void *python_init_request_data(ci_request_t *req) {
 
     pyci_debug_printf(PYCI_MESSAGE_LEVEL,"request %s has come", METHOD_TYPE);
 
-    ci_headers_list_t *hdrs;//HTTPヘッダが入る構造体
+    ci_headers_list_t *hdrs;
     PyObject * pMethodName;
     PyObject * pTuple;
     PyObject * pList;
     PyObject * pDict;
-    PyObject * pString;//TODO: pMethodNameが節約できるなあ
+    PyObject * pString;
     int i;
 
     if (REQ_TYPE == ICAP_REQMOD) {
@@ -51,34 +53,34 @@ void *python_init_request_data(ci_request_t *req) {
         hdrs = ci_http_response_headers(req);
     } else if (REQ_TYPE == ICAP_OPTIONS){
         // something? ;
-        return NULL;//OPTIONSリクエストはスルー
+        return NULL;
     } else {
         // UNKNOWN protocol
         pyci_debug_printf(PYCI_ERROR_LEVEL,"Error unsupported ICAP_METHOD_TYPE %d", REQ_TYPE);
-        //変なリクエストもスルー
         return NULL;
     }
 
-    pTuple = PyTuple_New(2);//クラスの__init__に渡す引数の数。 TODO: 他にも情報を送る場合増やす必要がある。 //E+
-    pMethodName = PyString_FromString(METHOD_TYPE);//E+
-    PyTuple_SetItem(pTuple,0,pMethodName);//第一引数はメソッド名。"REQMOD"か"RESPMOD"。//E+
-    //参照が引っこ抜かれるので、 DECREF(pMethodName)禁止
+    //get sub interp
+    pyci_service_data_t * service_data = (pyci_service_data_t *)(req->service_data);
+    // hold GIL
+    PyThreadState_Swap(service_data->pThreadState);
+    PyObject * pClass = service_data->pClass;
+    pTuple = PyTuple_New(2);//*args to pass. refcount = 1;
+    pMethodName = PyString_FromString(METHOD_TYPE);//pMethodName.refcount = 1
+    PyTuple_SetItem(pTuple,0,pMethodName);//args[0] = "REQMOD" or "RESPMOD"
+    //pMethodName.refcount => stolen! => no DECREF
     if (hdrs != NULL) {
-        pList = PyList_New(hdrs->used);//HTTPヘッダを入れるトコロ //E+
-        for(i = 0; i < hdrs->used; i++) {// && i < PYCI_MAX_HTTP_HEADERS
-            pString = PyString_FromString(hdrs->headers[i]);//次に入れるのはHTTPヘッダ //E+
-            PyList_SetItem(pList,i,pString);//E+
-            //参照が引っこ抜かれるので、 DECREF(pString)禁止
+        pList = PyList_New(hdrs->used);//pList.refcount = 1;
+        for(i = 0; i < hdrs->used; i++) {
+            pString = PyString_FromString(hdrs->headers[i]);//pString.refcount = 1
+            PyList_SetItem(pList,i,pString);
+            //pString.refcount => stolen! => no DECREF
         }
     }
-    PyTuple_SetItem(pTuple,1,pList);//第二引数はHTTPヘッダ。リスト型。サイズは変動 //E+
-
-    //参照が引っこ抜かれるので、 DECREF(pList)禁止
-
-    pDict = PyDict_New();//何もしない・・ //E+(NULL)
-    //PyDict_SetItemString(pDict, PYCI_CLASS_ARG_MOD_TYPE_NAME, pMethodName);//E+
-    PyObject * pInstance = PyInstance_New(pClass, pTuple, pDict);//E+
-    //TODO: //E+のところでエラー吐いてたらgotoで一まとめにErr_Printする！
+    PyTuple_SetItem(pTuple,1,pList);//args[1] = list of http header.
+    //pList.refcount => stolen! => no decref
+    pDict = PyDict_New();//pDict.refcount = 1;
+    PyObject * pInstance = PyInstance_New(pClass, pTuple, pDict);//pInstance.refcount = 1;
     Py_DECREF(pTuple);
     Py_DECREF(pDict);
     if (PyErr_Occurred()) {
@@ -86,9 +88,7 @@ void *python_init_request_data(ci_request_t *req) {
         pyci_debug_printf(PYCI_ERROR_LEVEL, "Error at creating instance of class "PYCI_CLASS" \n");
         return NULL;
     }
-    //TODO: クラスのカタチの決定
-    //TODO: 手動ガベコレ
-    //クラスのインスタンスの生成
-    Py_INCREF(pInstance);//スコープ外れてもガベコレされないようにする。
-    return (void *)pInstance;
+    //release GIL
+    PyThreadState_Swap(NULL);
+    return (void *)pInstance;//pInstance.refcount = 1;
 }

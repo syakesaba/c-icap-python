@@ -23,11 +23,11 @@
 
 void python_release_request_data(void *data) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
+//    //get sub interp
+//    pyci_service_data_t * service_data = (pyci_service_data_t *)g,pofsd,gopa;
+//    // hold GIL
+//    PyThreadState_Swap(service_data->pThreadState);
     PyObject * pInstance = (PyObject *)data;
-    /*
-    struct ruby_vars *rvars = (struct ruby_vars *)data;
-    ci_debug_printf(9, "ruby_release_request_data()\n");
-    free(rvars);
-    */
-    Py_DECREF(pInstance);//ガベコレ！
+    Py_DECREF(pInstance);
+    //PyThreadState_Swap(NULL);
 }

@@ -34,4 +34,10 @@
 #include "./pyci_service/end_of_data_handler.h"
 #include "./pyci_service/release_request_data.h"
 
+typedef struct pyci_service_data {
+    PyObject * pModule;
+    PyObject * pClass;
+    PyThreadState * pThreadState;
+} pyci_service_data_t;
+
 #endif /* PYCI_SERVICE_H_ */

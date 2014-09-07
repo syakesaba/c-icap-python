@@ -32,14 +32,14 @@
 #include "../pyci_debug.h"
 
 int post_init_python_handler(struct ci_server_conf *server_conf) {
-    pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
-    if (! Py_IsInitialized()) {
-        pyci_debug_printf(PYCI_ERROR_LEVEL,"FAIL at Py_Initialize()");
-        return CI_SERVICE_NOT_INITIALIZED;
-    } else if (PyErr_Occurred()) {
-        PyErr_Print();
-        pyci_debug_printf(PYCI_ERROR_LEVEL, "FAIL after Py_Initialize()");
-        return CI_SERVICE_ERROR;
-    }
+//    pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
+//    if (! Py_IsInitialized()) {
+//        pyci_debug_printf(PYCI_ERROR_LEVEL,"FAIL at Py_Initialize()");
+//        return CI_SERVICE_NOT_INITIALIZED;
+//    } else if (PyErr_Occurred()) {
+//        PyErr_Print();
+//        pyci_debug_printf(PYCI_ERROR_LEVEL, "FAIL after Py_Initialize()");
+//        return CI_SERVICE_ERROR;
+//    }
     return CI_SERVICE_OK;
 }

@@ -28,14 +28,16 @@
 /* グローバルなpythonのクラス変数。ICAPサービスごとにインスタンスを生成する */
 
 CI_DECLARE_DATA service_handler_module_t module = {
-	"python_handler", /* 名前 */
-	".py", /* 拡張子 */
-	init_python_handler, /* スクリプトハンドラ初期化処理 */
-	post_init_python_handler, /* スクリプトハンドラ初期化後処理 */
-	release_python_handler, /* スクリプトハンドラの解放処理 */
-	load_python_module, /* 各スクリプトをICAPサービスとして登録する処理 */
-	NULL /* TODO: conf_table */
+    "python_handler", /* 名前 */
+    ".py", /* 拡張子 */
+    init_python_handler, /* スクリプトハンドラ初期化処理 */
+    post_init_python_handler, /* スクリプトハンドラ初期化後処理 */
+    release_python_handler, /* スクリプトハンドラの解放処理 */
+    load_python_module, /* 各スクリプトをICAPサービスとして登録する処理 */
+    NULL /* TODO: conf_table */
 };
 
-PyObject * pClass;
+PyThreadState * pMainThreadState = NULL;
+ci_dyn_array_t * service_interp = NULL;
+
 // こいつにアクセスするには、module.hをインクルードすること。

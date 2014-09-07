@@ -34,6 +34,10 @@
 #include "./pyci_module/release_handler.h"
 
 CI_DECLARE_DATA service_handler_module_t module;
-extern PyObject * pClass; /* module.cでのみ実体化されます。 */
+
+#define MAX_INTERPRETER 1024
+
+extern PyThreadState * pMainThreadState; /* module.cでのみ実体化されます。 */
+extern ci_dyn_array_t * service_interp; /* module.cでのみ実体化されます。 */
 
 #endif /* PYCI_MODULE_H_ */
