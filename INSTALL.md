@@ -42,7 +42,7 @@ and append options to args
       --enable-ssl-crtd
       --enable-icap-client
     ]
-```conf
+```
 
 #### squid.conf
 append
