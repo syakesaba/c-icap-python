@@ -17,8 +17,8 @@
 */
 
 #include <Python.h>
-#include "service.h"
-#include "cfg_param.h"
+#include "c_icap/service.h"
+#include "c_icap/cfg_param.h"
 
 /*
  * 一度しかよばれない

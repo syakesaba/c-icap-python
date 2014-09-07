@@ -20,7 +20,7 @@
 #ifndef INIT_REQUEST_DATA_H_
 #define INIT_REQUEST_DATA_H_
 
-#include "request.h"
+#include "c_icap/request.h"
 
 void *python_init_request_data(ci_request_t *);
 

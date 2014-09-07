@@ -26,8 +26,8 @@
 
 #include <Python.h>
 #include <libgen.h>
-#include "c-icap.h"
-#include "service.h"
+#include "c_icap/c-icap.h"
+#include "c_icap/service.h"
 
 #include "../pyci_service.h"
 #include "../pyci_script.h"

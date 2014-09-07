@@ -19,7 +19,7 @@
 #ifndef CHECK_PREVIEW_HANDLER_H_
 #define CHECK_PREVIEW_HANDLER_H_
 
-#include "request.h"
+#include "c_icap/request.h"
 
 int python_check_preview_handler(char *preview_data, int preview_data_len, ci_request_t *);
 

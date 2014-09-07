@@ -1,13 +1,15 @@
 Please make another module
 =============
-A python wrapper for c-icap is strongly needed!  
+__A python wrapper for c-icap is strongly needed!__  
 Like [mod\_wsgi](http://code.google.com/p/modwsgi/), we have to change interpreters for each ICAP Requests.  
 Unfortunally I have no sense of programming. I hope someone else make another python wrapper for c-icap.
+
+---
 
 c-icap-python
 =============
 
-c-icap module for python 
+[c-icap](http://c-icap.sourceforge.net/) module for python
  
 A python port of c-icap-ruby module by Roman Shterenzon. 
 
@@ -25,7 +27,7 @@ Install
 Depends
 =============
 - c-icap(include files,libraries)
-- libpython
+- libpython (Python.h)
 
 License
 =============

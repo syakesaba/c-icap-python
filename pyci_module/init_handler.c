@@ -26,7 +26,7 @@
  */
 
 #include <Python.h>
-#include "service.h"
+#include "c_icap/service.h"
 
 #include "../pyci_debug.h"
 

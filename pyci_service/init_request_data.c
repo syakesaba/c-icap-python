@@ -17,8 +17,8 @@
 */
 
 #include <Python.h>
-#include "c-icap.h"
-#include "simple_api.h"
+#include "c_icap/c-icap.h"
+#include "c_icap/simple_api.h"
 
 #include "../pyci_script.h"
 #include "../pyci_module.h"

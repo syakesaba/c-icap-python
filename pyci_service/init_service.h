@@ -20,7 +20,8 @@
 #ifndef INIT_SERVICE_H_
 #define INIT_SERVICE_H_
 
-#include "service.h"
+#include "c_icap/service.h"
+#include "c_icap/cfg_param.h"
 
 int python_init_service(ci_service_xdata_t *srv_xdata, struct ci_server_conf *server_conf);
 

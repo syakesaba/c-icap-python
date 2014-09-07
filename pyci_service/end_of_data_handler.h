@@ -19,7 +19,7 @@
 #ifndef END_OF_DATA_HANDLER_H_
 #define END_OF_DATA_HANDLER_H_
 
-#include "request.h"
+#include "c_icap/request.h"
 
 int python_end_of_data_handler(ci_request_t *req);
 

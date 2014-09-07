@@ -19,7 +19,7 @@
 #ifndef LOAD_MODULE_H_
 #define LOAD_MODULE_H_
 
-#include "service.h"
+#include "c_icap/service.h"
 
 int append_python_path(const char * service_file);
 ci_service_module_t * load_python_module(const char * service_file);

@@ -19,7 +19,7 @@
 #ifndef PYCI_DEBUG_H_
 #define PYCI_DEBUG_H_
 
-#include "debug.h"
+#include "c_icap/debug.h"
 
 #ifndef DEBUG
 #define DEBUG 1
@@ -36,12 +36,9 @@
         ci_debug_printf(1, "(%d):%s():L%04d: "msg"\n", getpid(), __func__, __LINE__, ## __VA_ARGS__)
 #endif
 
-//        ci_debug_printf(1, "%s():L%04d: "msg"\n", __func__, __LINE__, ## __VA_ARGS__)
-
-
 #ifndef DEBUG
 #define pyci_debug_printf(lev,msg, ...)  \
-        ci_debug_printf(lev, "%s():L%04d: "msg"\n", __func__, __LINE__, ## __VA_ARGS__)
+        ci_debug_printf(lev, msg"\n", ## __VA_ARGS__)
 #endif
 
 #endif /* PYCI_DEBUG_H_ */

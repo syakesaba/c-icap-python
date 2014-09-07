@@ -19,6 +19,8 @@
 #ifndef INIT_HANDLER_H_
 #define INIT_HANDLER_H_
 
+#include "c_icap/cfg_param.h"
+
 int init_python_handler(struct ci_server_conf *server_conf);
 
 #endif /* INIT_HANDLER_H_ */

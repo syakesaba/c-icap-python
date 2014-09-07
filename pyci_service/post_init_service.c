@@ -24,8 +24,8 @@
  */
 
 //#include <Python.h>
-#include "service.h" //cfg_param.h
-#include "request.h" //CI_OK
+#include "c_icap/service.h" //cfg_param.h
+#include "c_icap/request.h" //CI_OK
 
 #include "../pyci_debug.h"
 
