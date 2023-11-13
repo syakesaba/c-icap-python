@@ -36,8 +36,12 @@ all: $(TARGET)
 clean:
 	-$(RM) $(TARGET) $(OBJS)
 
-$(TARGET): $(SOURCE)
+#$(TARGET): $(SOURCE)
+#	$(CC) $(FLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $< $(INCLUDES)
+
+$(TARGET): $(OBJS)
 	$(CC) $(FLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $< $(INCLUDES)
+#	$(CC) $(LDFLAGS) -o $@ $^
 
 #apt install graphviz 
 DOT := dot
