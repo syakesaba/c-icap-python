@@ -19,8 +19,8 @@
 #include <Python.h>
 #include "c_icap/request.h"
 
-#include "../pyci_script.h"
-#include "../pyci_debug.h"
+#include "pyci_script.h"
+#include "pyci_debug.h"
 
 //rlen,wlenもポインタになっていることに注意！
 int python_service_io(char * wbuf, int * wlen, char * rbuf, int * rlen, int iseof, ci_request_t * req) {

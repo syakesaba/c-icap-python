@@ -19,7 +19,7 @@
 
 #include <Python.h>
 
-#include "../pyci_debug.h"
+#include "pyci_debug.h"
 
 void python_release_request_data(void *data) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");

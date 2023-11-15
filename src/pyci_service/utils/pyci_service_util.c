@@ -10,8 +10,8 @@
 #include "c_icap/request.h"
 #include "c_icap/simple_api.h"
 
-#include "../../pyci_debug.h"
-#include "../../pyci_script.h"
+#include "pyci_debug.h"
+#include "pyci_script.h"
 
 /* Replaces the original headers with the headers returned by the Python code */
 //TODO: 全く同じheaderを持っている場合はこの関数を実行しない

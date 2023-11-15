@@ -27,7 +27,7 @@
 #include "c_icap/service.h" //cfg_param.h
 #include "c_icap/request.h" //CI_OK
 
-#include "../pyci_debug.h"
+#include "pyci_debug.h"
 
 /**
    \brief Pointer to the function which called after the c-icap initialized, but before

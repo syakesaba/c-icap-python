@@ -23,7 +23,7 @@
 #include <Python.h>
 #include "c_icap/module.h"
 
-#include "./pyci_module.h"
+#include "pyci_module.h"
 
 /* グローバルなpythonのクラス変数。ICAPサービスごとにインスタンスを生成する */
 

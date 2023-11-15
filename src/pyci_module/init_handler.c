@@ -28,7 +28,7 @@
 #include <Python.h>
 #include "c_icap/service.h"
 
-#include "../pyci_debug.h"
+#include "pyci_debug.h"
 
 int init_python_handler(struct ci_server_conf *server_conf) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");

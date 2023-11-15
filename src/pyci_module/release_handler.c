@@ -18,8 +18,8 @@
 
 #include <Python.h>
 
-#include "../pyci_module.h" //pClassアクセス
-#include "../pyci_debug.h"
+#include "pyci_module.h" //pClassアクセス
+#include "pyci_debug.h"
 
 /*
  * 一度だけ呼ばれる

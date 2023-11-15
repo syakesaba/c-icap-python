@@ -28,10 +28,10 @@
 #include "c_icap/c-icap.h"
 #include "c_icap/module.h"
 
-#include "./pyci_module/init_handler.h"
-#include "./pyci_module/post_init_handler.h"
-#include "./pyci_module/load_module.h"
-#include "./pyci_module/release_handler.h"
+#include "pyci_module/init_handler.h"
+#include "pyci_module/post_init_handler.h"
+#include "pyci_module/load_module.h"
+#include "pyci_module/release_handler.h"
 
 CI_DECLARE_DATA service_handler_module_t module;
 extern PyObject * pClass; /* module.cでのみ実体化されます。 */

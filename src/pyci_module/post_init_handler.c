@@ -29,7 +29,7 @@
  * ================================================================
  */
 
-#include "../pyci_debug.h"
+#include "pyci_debug.h"
 
 int post_init_python_handler(struct ci_server_conf *server_conf) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");

@@ -21,9 +21,9 @@
 #include "c_icap/request.h"
 #include "c_icap/simple_api.h"
 
-#include "../pyci_script.h"
-#include "../pyci_debug.h"
-#include "./utils/pyci_service_util.h"
+#include "pyci_script.h"
+#include "pyci_debug.h"
+#include "pyci_service/utils/pyci_service_util.h"
 
 int python_end_of_data_handler(ci_request_t *req) {
     pyci_debug_printf(PYCI_INFO_LEVEL, "");

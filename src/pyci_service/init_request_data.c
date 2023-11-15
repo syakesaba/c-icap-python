@@ -20,9 +20,9 @@
 #include "c_icap/c-icap.h"
 #include "c_icap/simple_api.h"
 
-#include "../pyci_script.h"
-#include "../pyci_module.h"
-#include "../pyci_debug.h"
+#include "pyci_script.h"
+#include "pyci_module.h"
+#include "pyci_debug.h"
 
 /*
  * ICAPリクエストが到着する度に呼び出される。

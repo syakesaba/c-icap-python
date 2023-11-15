@@ -20,10 +20,10 @@
 #include "c_icap/request.h"
 #include "c_icap/simple_api.h"
 
-#include "../pyci_script.h"
-#include "../pyci_debug.h"
+#include "pyci_script.h"
+#include "pyci_debug.h"
 
-#include "./service_io.h"
+#include "pyci_service/service_io.h"
 
 int python_check_preview_handler(char *preview_data, int preview_data_len, ci_request_t *req) {
 

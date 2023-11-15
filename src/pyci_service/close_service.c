@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../pyci_debug.h"
+#include "pyci_debug.h"
 
 void python_close_service() {
     //特になにもしない。Py_Finalize()はmodule.cの方でする。

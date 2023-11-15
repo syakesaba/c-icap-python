@@ -29,10 +29,10 @@
 #include "c_icap/c-icap.h"
 #include "c_icap/service.h"
 
-#include "../pyci_service.h"
-#include "../pyci_script.h"
-#include "../pyci_module.h"
-#include "../pyci_debug.h"
+#include "pyci_service.h"
+#include "pyci_script.h"
+#include "pyci_module.h"
+#include "pyci_debug.h"
 
 int append_python_path(const char * service_file);//if ret != 0, ERROR.
 PyObject * import_python_module(const char * service_file);//if NULL, ERROR.
