@@ -33,7 +33,16 @@
 #include "pyci_module/load_module.h"
 #include "pyci_module/release_handler.h"
 
-CI_DECLARE_DATA service_handler_module_t module;
-extern PyObject * pClass; /* module.cでのみ実体化されます。 */
+CI_DECLARE_DATA service_handler_module_t module = {
+	"python_handler", /* 名前 */
+	".py", /* 拡張子 */
+	init_python_handler, /* スクリプトハンドラ初期化処理 */
+	post_init_python_handler, /* スクリプトハンドラ初期化後処理 */
+	release_python_handler, /* スクリプトハンドラの解放処理 */
+	load_python_module, /* 各スクリプトをICAPサービスとして登録する処理 */
+	NULL /* TODO: conf_table */
+};
+
+extern PyObject * pClass;
 
 #endif /* PYCI_MODULE_H_ */

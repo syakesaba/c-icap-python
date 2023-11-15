@@ -25,13 +25,15 @@
 #ifndef PYCI_SERVICE_H_
 #define PYCI_SERVICE_H_
 
-#include "./pyci_service/init_service.h"
-#include "./pyci_service/post_init_service.h"
-#include "./pyci_service/close_service.h"
-#include "./pyci_service/init_request_data.h"
-#include "./pyci_service/check_preview_handler.h"
-#include "./pyci_service/service_io.h"
-#include "./pyci_service/end_of_data_handler.h"
-#include "./pyci_service/release_request_data.h"
+#include "pyci_service/init_service.h"
+#include "pyci_service/post_init_service.h"
+#include "pyci_service/close_service.h"
+#include "pyci_service/init_request_data.h"
+#include "pyci_service/check_preview_handler.h"
+#include "pyci_service/service_io.h"
+#include "pyci_service/end_of_data_handler.h"
+#include "pyci_service/release_request_data.h"
+#include "pyci_service/utils/pyci_service_util.h"
+
 
 #endif /* PYCI_SERVICE_H_ */
