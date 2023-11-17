@@ -23,7 +23,7 @@
  * ================================================================
  */
 
-//#include <Python.h>
+// #include <Python.h>
 #include "c_icap/service.h" //cfg_param.h
 #include "c_icap/request.h" //CI_OK
 
@@ -41,7 +41,8 @@
  \param server_conf Pointer to the struct holds the main c-icap server configuration
  \return CI_OK on success, CI_ERROR on errors.
  */
-int python_post_init_service(ci_service_xdata_t *srv_xdata,struct ci_server_conf *server_conf) {
-    pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
+int python_post_init_service(ci_service_xdata_t *srv_xdata, struct ci_server_conf *server_conf)
+{
+    pyci_debug_printf(PYCI_INFO_LEVEL, "starts");
     return CI_OK;
 }

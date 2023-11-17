@@ -19,6 +19,6 @@
 #ifndef RELEASE_REQUEST_DATA_H_
 #define RELEASE_REQUEST_DATA_H_
 
-void python_release_request_data(void * data);
+void python_release_request_data(void *data);
 
 #endif /* RELEASE_REQUEST_DATA_H_ */

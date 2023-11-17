@@ -24,10 +24,12 @@
 /*
  * 一度だけ呼ばれる
  */
-void release_python_handler() {
-    pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
-    if (Py_IsInitialized()) {
-        pyci_debug_printf(PYCI_MESSAGE_LEVEL,"Finalizing Python!");
+void release_python_handler()
+{
+    pyci_debug_printf(PYCI_INFO_LEVEL, "starts");
+    if (Py_IsInitialized())
+    {
+        pyci_debug_printf(PYCI_MESSAGE_LEVEL, "Finalizing Python!");
         Py_XDECREF(pClass);
         Py_Finalize();
     }

@@ -35,5 +35,4 @@
 #include "pyci_service/release_request_data.h"
 #include "pyci_service/utils/pyci_service_util.h"
 
-
 #endif /* PYCI_SERVICE_H_ */

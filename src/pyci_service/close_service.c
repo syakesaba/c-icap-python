@@ -18,9 +18,9 @@
 
 #include "pyci_debug.h"
 
-void python_close_service() {
-    //特になにもしない。Py_Finalize()はmodule.cの方でする。
-    pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
+void python_close_service()
+{
+    // 特になにもしない。Py_Finalize()はmodule.cの方でする。
+    pyci_debug_printf(PYCI_INFO_LEVEL, "starts");
     return;
-
 }

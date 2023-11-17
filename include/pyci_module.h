@@ -33,7 +33,7 @@
 #include "pyci_module/load_module.h"
 #include "pyci_module/release_handler.h"
 
-CI_DECLARE_DATA service_handler_module_t module;
-extern PyObject * pClass;
+CI_DECLARE_DATA extern service_handler_module_t module;
+extern PyObject *pClass;
 
 #endif /* PYCI_MODULE_H_ */

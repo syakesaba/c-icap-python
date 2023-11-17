@@ -16,18 +16,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include <Python.h>
 
 #include "pyci_debug.h"
 
-void python_release_request_data(void *data) {
-    pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
-    PyObject * pInstance = (PyObject *)data;
+void python_release_request_data(void *data)
+{
+    pyci_debug_printf(PYCI_INFO_LEVEL, "starts");
+    PyObject *pInstance = (PyObject *)data;
     /*
     struct ruby_vars *rvars = (struct ruby_vars *)data;
     ci_debug_printf(9, "ruby_release_request_data()\n");
     free(rvars);
     */
-    Py_DECREF(pInstance);//ガベコレ！
+    Py_DECREF(pInstance); // ガベコレ！
 }
