@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 WORKDIR /opt/app
 COPY ./. /opt/app
 
-RUN set -ex && apt update -y && apt install -y make gcc libicapapi-dev python3-dev libssl-dev graphviz doxygen  c-icap squid-openssl && make all doc flow
+RUN set -ex && apt update -y && apt install -y make gcc libicapapi-dev python3-dev libssl-dev graphviz doxygen  c-icap squid-openssl && make cleanall all doc flow
 
 # Open squid port
 EXPOSE 3128
