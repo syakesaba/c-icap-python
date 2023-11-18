@@ -11,7 +11,7 @@ RM = rm -f
 RMDIR = rm -rf
 
 PYTHON_CFLAGS = $(shell python3-config --cflags)
-PYTHON_LDFLAGS = $(shell python3-config --ldflags)
+PYTHON_LDFLAGS = $(shell python3-config --ldflags --embed)
 C_ICAP_CFLAGS = $(shell c-icap-libicapapi-config --cflags)
 C_ICAP_LDLAGS = $(shell c-icap-libicapapi-config --libs)
 
