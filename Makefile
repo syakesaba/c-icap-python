@@ -68,6 +68,12 @@ doc: $(DOXYGEN_TARGET_SRC) $(DOXYFILE)
 cleandoc:
 	$(RMDIR) $(DOXYGEN_TARGET)
 
+#apt install docker-ce
+
+.PHONY: docker
+docker: Dockerfile
+	docker build . -t c-icap-python
+
 # ALL
 
 .PHONY: cleanall
