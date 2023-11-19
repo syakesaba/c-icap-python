@@ -35,4 +35,4 @@ CI_DECLARE_DATA extern service_handler_module_t module = {
 	NULL					  /* TODO: conf_table */
 };
 
-extern PyObject *pClass;
+extern PyObject *pClass = NULL;

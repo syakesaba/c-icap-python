@@ -38,13 +38,12 @@ void *python_init_request_data(ci_request_t *req)
 
     pyci_debug_printf(PYCI_MESSAGE_LEVEL, "request %s has come", METHOD_TYPE);
 
-    ci_headers_list_t *hdrs; // HTTPヘッダが入る構造体
-    PyObject *pMethodName;
-    PyObject *pTuple;
-    PyObject *pList;
-    PyObject *pDict;
-    PyObject *pString; // TODO: pMethodNameが節約できるなあ
-    int i;
+    ci_headers_list_t *hdrs = NULL; // HTTPヘッダが入る構造体
+    PyObject *pMethodName = NULL;
+    PyObject *pTuple = NULL;
+    PyObject *pList = NULL;
+    PyObject *pDict = NULL;
+    PyObject *pString = NULL; // TODO: pMethodNameが節約できるなあ
 
     if (REQ_TYPE == ICAP_REQMOD)
     {
@@ -74,7 +73,7 @@ void *python_init_request_data(ci_request_t *req)
     if (hdrs != NULL)
     {
         pList = PyList_New(hdrs->used); // HTTPヘッダを入れるトコロ //E+
-        for (i = 0; i < hdrs->used; i++)
+        for (int i = 0; i < hdrs->used; i++)
         {                                                    // && i < PYCI_MAX_HTTP_HEADERS
             pString = PyString_FromString(hdrs->headers[i]); // 次に入れるのはHTTPヘッダ //E+
             PyList_SetItem(pList, i, pString);               // E+

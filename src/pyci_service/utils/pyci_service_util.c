@@ -39,11 +39,11 @@ int replace_headers(ci_request_t *req)
 
 	if (pList && PyList_Check(pList))
 	{
-		PyObject *pHeader;
-		char *header;
-		int i, pList_size;
+		PyObject *pHeader = NULL;
+		char *header = NULL;
+		int pList_size = 0;
 		pList_size = PyList_Size(pList); // E+ TODO: size check
-		for (i = 0; i < pList_size; i++)
+		for (int i = 0; i < pList_size; i++)
 		{
 			pHeader = PyList_GetItem(pList, i); // E+ Don't DECREF
 			if (pHeader && PyString_Check(pHeader))

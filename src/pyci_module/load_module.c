@@ -72,13 +72,13 @@ ci_service_module_t *load_python_module(const char *service_file)
     pyci_debug_printf(PYCI_INFO_LEVEL, "starts");
     pyci_debug_printf(PYCI_INFO_LEVEL, "loading %s", service_file);
 
-    PyObject *pModule;
-    PyObject *pObj;
-    PyObject *pList;
-    PyObject *pService_Name;
-    PyObject *pService_Descr;
+    PyObject *pModule = NULL;
+    PyObject *pObj = NULL;
+    PyObject *pList = NULL;
+    PyObject *pService_Name = NULL;
+    PyObject *pService_Descr = NULL;
 
-    ci_service_module_t *service; /* こいつはpythonスクリプト一個につき一個だけ生成される */
+    ci_service_module_t *service = NULL; /* こいつはpythonスクリプト一個につき一個だけ生成される */
 
     /* ===================================================
      *  このファイルの核。サービス構造体の作成処理
@@ -153,9 +153,8 @@ ci_service_module_t *load_python_module(const char *service_file)
         {
             goto pList_size_error;
         }
-        int i;
-        char *item;
-        for (i = 0; i < sizeof_pList; i++)
+        char *item = NULL;
+        for (int i = 0; i < sizeof_pList; i++)
         {
             PyObject *pItem = PyList_GetItem(pList, i); // 借り参照。DECREF禁止。//E+
             if (pItem != NULL && PyString_Check(pItem))
@@ -203,7 +202,7 @@ ci_service_module_t *load_python_module(const char *service_file)
      *  Pythonスクリプトから、サービス名を取得する処理
      * ===================================================
      */
-    char *service_name;
+    char *service_name = NULL;
     pService_Name = PyObject_GetAttrString(pClass, PYCI_CLASS_STRING_SERVICE_NAME); // E+ N
     if (pService_Name != NULL && PyString_Check(pService_Name))
     {
@@ -226,7 +225,7 @@ ci_service_module_t *load_python_module(const char *service_file)
      *  (サービス名よりもサービスの概要が優先されて表示されるので注意）
      * ===================================================
      */
-    char *service_descr;
+    char *service_descr = NULL;
     pService_Descr = PyObject_GetAttrString(pClass, PYCI_CLASS_STRING_SERVICE_DESCRIPTION); // E+ N
     if (pService_Descr != NULL && PyString_Check(pService_Descr))
     {
@@ -302,8 +301,8 @@ invalid_service_descr_error:
 int append_python_path(const char *service_file)
 {
     int ret = 0;
-    char *cp_service_file;
-    const char *dir_name;
+    char *cp_service_file = NULL;
+    const char *dir_name = NULL;
 
     cp_service_file = strndup(service_file, strlen(service_file)); // returns copied-allocated one.
     dir_name = dirname(cp_service_file);                           // returns pointer. not allocted one.

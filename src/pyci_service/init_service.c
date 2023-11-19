@@ -40,14 +40,14 @@
 int python_init_service(ci_service_xdata_t *srv_xdata, struct ci_server_conf *server_conf) {
     pyci_debug_printf(PYCI_INFO_LEVEL,"starts");
 
-    PyObject * pIStag;
+    PyObject * pIStag = NULL;
 
     /* ===================================================
      *  Pythonスクリプトから、ISTAGを取得する処理（ないならスルー）
      *    TODO: ユーザが大量の文字数を指定してきたとき、AsStringが危険。クラウド公開できない。
      * ===================================================
      */
-    char * istag;
+    char * istag = NULL;
     if (! PyObject_HasAttrString(pClass, PYCI_CLASS_STRING_SERVICE_ISTAG)) {
         goto istag_ignore;//E+ N
     }
