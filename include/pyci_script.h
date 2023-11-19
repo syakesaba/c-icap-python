@@ -33,5 +33,8 @@
 
 #define PYTHONPATH_LOCATION_IN_SYS "path" //sys.path = PYTHONPATH
 
+#if PY_MAJOR_VERSION >= 3
+#define IS_PY3K
+#endif
 
 #endif /* PYCI_SCRIPT_H_ */
