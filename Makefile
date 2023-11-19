@@ -9,21 +9,19 @@ DEBUG = 0
 CC = gcc
 RM = rm -f
 RMDIR = rm -rf
+SRCDIR = src
+INCDIR = include
+SRCS = $(shell find $(SRCDIR) -type f -name "*.c")
+OBJS = $(SRCS:.c=.o)
+TARGET = libc-icap-python.so
 
 PYTHON_CFLAGS = $(shell python3-config --cflags)
 PYTHON_LDFLAGS = $(shell python3-config --ldflags --embed)
 C_ICAP_CFLAGS = $(shell c-icap-libicapapi-config --cflags)
 C_ICAP_LDLAGS = $(shell c-icap-libicapapi-config --libs)
 
-SRCDIR = src
-INCDIR = include
-
-SRCS = $(shell find $(SRCDIR) -type f -name "*.c")
-OBJS = $(SRCS:.c=.o)
-TARGET = libc-icap-python.so
-
-CFLAGS = -fPIC -O4 -Wall -I$(INCDIR) $(PYTHON_CFLAGS) $(C_ICAP_CFLAGS)
-LDFLAGS = -shared $(PYTHON_LDFLAGS) $(C_ICAP_LDLAGS)
+CFLAGS = $(PYTHON_CFLAGS) $(C_ICAP_CFLAGS) -I$(INCDIR) -fPIC -O4 -Wall
+LDFLAGS = $(PYTHON_LDFLAGS) $(C_ICAP_LDLAGS) -shared
 
 .PHONY: all
 all: $(TARGET)
@@ -33,12 +31,12 @@ clean:
 	-$(RM) $(TARGET) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 $(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $^ -o $@ $(LDFLAGS)
 
-#apt install graphviz 
+#apt install graphviz
 DOT := dot
 DOT_TARGET := flow.dot
 DOT_OPTIONS ?= -Tjpg
