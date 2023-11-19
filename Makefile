@@ -20,7 +20,6 @@ INCDIR = include
 
 SRCS = $(shell find $(SRCDIR) -type f -name "*.c")
 OBJS = $(SRCS:.c=.o)
-LIBS = -lpython -licapapi
 TARGET = libc-icap-python.so
 
 CFLAGS = -fPIC -O4 -Wall -I$(INCDIR) $(PYTHON_CFLAGS) $(C_ICAP_CFLAGS)
