@@ -17,8 +17,11 @@
 */
 
 #include <Python.h>
-#include "c_icap/service.h"
-#include "c_icap/cfg_param.h"
+#include <c_icap/service.h>
+#include <c_icap/cfg_param.h>
+
+#include "pyci_module.h"
+#include "pyci_debug.h"
 
 /*
  * 一度しかよばれない
@@ -28,8 +31,6 @@
  * Next is -> ../pyci_service/post_init_service.c
  * ================================================================
  */
-
-#include "pyci_debug.h"
 
 int post_init_python_handler(struct ci_server_conf *server_conf)
 {

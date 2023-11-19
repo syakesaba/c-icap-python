@@ -19,8 +19,8 @@
 #ifndef POST_INIT_SERVICE_H_
 #define POST_INIT_SERVICE_H_
 
-#include "c_icap/service.h" //cfg_param.h
-#include "c_icap/cfg_param.h"
+#include <c_icap/service.h> //cfg_param.h
+#include <c_icap/cfg_param.h>
 
 int python_post_init_service(ci_service_xdata_t *srv_xdata, struct ci_server_conf *server_conf);
 

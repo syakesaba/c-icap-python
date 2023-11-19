@@ -18,6 +18,7 @@
 
 #include <Python.h>
 
+#include "pyci_service.h"
 #include "pyci_debug.h"
 
 void python_release_request_data(void *data)

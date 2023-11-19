@@ -18,7 +18,7 @@
 
 #include <Python.h>
 
-#include "pyci_module.h" //pClassアクセス
+#include "pyci_module.h"
 #include "pyci_debug.h"
 
 /*

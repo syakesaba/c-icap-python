@@ -21,7 +21,7 @@
  */
 
 #include <Python.h>
-#include "c_icap/module.h"
+#include <c_icap/module.h>
 
 #include "pyci_module.h"
 

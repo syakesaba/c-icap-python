@@ -19,7 +19,8 @@
 #ifndef PYCI_DEBUG_H_
 #define PYCI_DEBUG_H_
 
-#include "c_icap/debug.h"
+#include <unistd.h>
+#include <c_icap/debug.h>
 
 #ifndef DEBUG
 #define DEBUG 1

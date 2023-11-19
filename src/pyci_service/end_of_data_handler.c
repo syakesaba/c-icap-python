@@ -17,13 +17,13 @@
 */
 
 #include <Python.h>
-#include "c_icap/service.h"
-#include "c_icap/request.h"
-#include "c_icap/simple_api.h"
+#include <c_icap/service.h>
+#include <c_icap/request.h>
+#include <c_icap/simple_api.h>
 
+#include "pyci_service.h"
 #include "pyci_script.h"
 #include "pyci_debug.h"
-#include "pyci_service/utils/pyci_service_util.h"
 
 int python_end_of_data_handler(ci_request_t *req) {
     pyci_debug_printf(PYCI_INFO_LEVEL, "");

@@ -19,7 +19,7 @@
 #ifndef POST_INIT_HANDLER_H_
 #define POST_INIT_HANDLER_H_
 
-#include "c_icap/cfg_param.h"
+#include <c_icap/cfg_param.h>
 
 int post_init_python_handler(struct ci_server_conf *server_conf);
 

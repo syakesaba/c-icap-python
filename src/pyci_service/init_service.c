@@ -18,9 +18,10 @@
 
 
 #include <Python.h>
-#include "c_icap/service.h"
-#include "c_icap/request.h"
+#include <c_icap/service.h>
+#include <c_icap/request.h>
 
+#include "pyci_service.h"
 #include "pyci_module.h"
 #include "pyci_debug.h"
 #include "pyci_script.h"

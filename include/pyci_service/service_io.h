@@ -19,7 +19,7 @@
 #ifndef SERVICE_IO_H_
 #define SERVICE_IO_H_
 
-#include "c_icap/request.h"
+#include <c_icap/request.h>
 
 int python_service_io(char * wbuf, int * wlen, char * rbuf, int * rlen, int iseof, ci_request_t * req);
 

@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "pyci_service.h"
 #include "pyci_debug.h"
 
 void python_close_service()
