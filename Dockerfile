@@ -1,14 +1,18 @@
 FROM ubuntu:22.04
+ARG pv
 
-WORKDIR /opt/app
-COPY ./. /opt/app
+WORKDIR /
+COPY ./. /
 
-RUN set -ex && apt update -y && apt install -y make gcc libicapapi-dev python3-dev libssl-dev graphviz doxygen  c-icap squid-openssl && make cleanall all doc flow
+RUN set -ex \
+&& apt update -y \
+&& apt install -y make gcc libicapapi-dev python${pv}-dev libssl-dev graphviz doxygen  c-icap squid-openssl \
+&& make cleanall all doc flow
 
 # Open squid port
 EXPOSE 3128
 
 # Run
-RUN chmod +x /opt/app/entrypoint.sh
-ENTRYPOINT ["/opt/app/entrypoint.sh"]
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 

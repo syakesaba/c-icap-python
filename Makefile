@@ -5,7 +5,8 @@
 # apt install python{2,3}-dev libicapapi-dev libssl-dev
 
 # DEFINE VARIABLES
-PYTHON_VERSION = 3
+#PYTHON_VERSION = 3
+PYTHON_VERSION = 2
 DEBUG = 0
 CC = gcc
 RM = rm -f
@@ -84,7 +85,10 @@ cleandoc:
 
 .PHONY: docker
 docker: Dockerfile
-	docker build . -t c-icap-python
+	make cleanall
+	docker build . -t c-icap-python --build-arg pv=$(PYTHON_VERSION)
+	yes | docker system prune
+
 
 # ALL
 

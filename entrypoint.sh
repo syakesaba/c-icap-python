@@ -5,9 +5,13 @@
 
 C_ICAP_CONF="/etc/c-icap/c-icap.conf"
 C_ICAP_MODULES_DIR="/usr/lib/x86_64-linux-gnu/c_icap"
+C_ICAP_RUN_DIR="/var/run/c-icap"
 
 cp -f libc-icap-python.so $C_ICAP_MODULES_DIR/libc-icap-python.so
 cp -f srv_echo.py $C_ICAP_MODULES_DIR/srv_echo.py
+
+mkdir -p $C_ICAP_RUN_DIR
+chown c-icap:c-icap -R $C_ICAP_RUN_DIR
 
 echo "#=== begin of added config ===" >> $C_ICAP_CONF
 echo "Module service_handler libc-icap-python.so" >> $C_ICAP_CONF
@@ -44,12 +48,18 @@ echo "adaptation_send_client_ip off" >> $SQUID_CONF
 echo "adaptation_send_username off" >> $SQUID_CONF
 echo "icap_service srv_echo_req reqmod_precache icap://127.0.0.1:1344/echo"  >> $SQUID_CONF
 echo "icap_service srv_echo_resp respmod_precache icap://127.0.0.1:1344/echo" >> $SQUID_CONF
+echo "icap_service srv_python_req reqmod_precache icap://127.0.0.1:1344/python"  >> $SQUID_CONF
+echo "icap_service srv_python_resp respmod_precache icap://127.0.0.1:1344/python" >> $SQUID_CONF
 #echo "adaptation_service_set svc_echo_req_set srv_echo_req" >> $SQUID_CONF
 #echo "adaptation_service_set svc_echo_resp_set srv_echo_resp">> $SQUID_CONF
-echo "adaptation_service_chain svc_echo_req_chain srv_echo_req" >> $SQUID_CONF
-echo "adaptation_service_chain svc_echo_resp_chain srv_echo_resp">> $SQUID_CONF
-echo "adaptation_access svc_echo_req_chain allow all">> $SQUID_CONF
-echo "adaptation_access svc_echo_resp_chain allow all">> $SQUID_CONF
+#echo "adaptation_service_chain svc_echo_req_chain srv_echo_req" >> $SQUID_CONF
+#echo "adaptation_service_chain svc_echo_resp_chain srv_echo_resp">> $SQUID_CONF
+echo "adaptation_service_chain svc_python_req_chain srv_python_req" >> $SQUID_CONF
+echo "adaptation_service_chain svc_python_resp_chain srv_python_resp">> $SQUID_CONF
+#echo "adaptation_access svc_echo_req_chain allow all">> $SQUID_CONF
+#echo "adaptation_access svc_echo_resp_chain allow all">> $SQUID_CONF
+echo "adaptation_access svc_python_req_chain allow all">> $SQUID_CONF
+echo "adaptation_access svc_python_resp_chain allow all">> $SQUID_CONF
 echo "#==== end of added config ===" >> $SQUID_CONF
 cat $SQUID_CONF | grep "#==== end of added config ===" -A1000 > /dev/null #fflush()
 squid -d 10 -f $SQUID_CONF
