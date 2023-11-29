@@ -67,7 +67,7 @@ PyObject *import_python_module(const char *service_file); // if NULL, ERROR.
 /*
  * service_fileは残念ながらフルパスです。
  */
-ci_service_module_t *load_python_module(const char *service_file)
+ci_service_module_t *load_python_module(const char *service_file, const char *argv[])
 {
     pyci_debug_printf(PYCI_INFO_LEVEL, "starts");
     pyci_debug_printf(PYCI_INFO_LEVEL, "loading %s", service_file);

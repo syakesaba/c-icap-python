@@ -25,7 +25,7 @@
 
 #include "pyci_module.h"
 
-CI_DECLARE_DATA extern service_handler_module_t module = {
+CI_DECLARE_DATA service_handler_module_t module = {
 	"python_handler",		  /* 名前 */
 	".py",					  /* 拡張子 */
 	init_python_handler,	  /* スクリプトハンドラ初期化処理 */
@@ -35,4 +35,4 @@ CI_DECLARE_DATA extern service_handler_module_t module = {
 	NULL					  /* TODO: conf_table */
 };
 
-extern PyObject *pClass = NULL;
+PyObject *pClass = NULL;

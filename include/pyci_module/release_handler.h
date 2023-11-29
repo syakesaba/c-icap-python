@@ -19,6 +19,6 @@
 #ifndef RELEASE_HANDLER_H_
 #define RELEASE_HANDLER_H_
 
-void release_python_handler();
+void release_python_handler(void);
 
 #endif /* RELEASE_HANDLER_H_ */

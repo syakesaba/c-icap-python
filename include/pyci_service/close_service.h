@@ -19,6 +19,6 @@
 #ifndef CLOSE_SERVICE_H_
 #define CLOSE_SERVICE_H_
 
-void python_close_service();
+void python_close_service(void);
 
 #endif /* CLOSE_SERVICE_H_ */

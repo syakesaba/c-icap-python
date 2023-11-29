@@ -22,6 +22,6 @@
 #include <c_icap/service.h>
 
 int append_python_path(const char *service_file);
-ci_service_module_t *load_python_module(const char *service_file);
+ci_service_module_t *load_python_module(const char *service_file, const char *argv[]);
 
 #endif /* LOAD_MODULE_H_ */

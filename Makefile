@@ -49,6 +49,7 @@ clean:
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
+.PHONY: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $^ -o $@ $(LDFLAGS)
 

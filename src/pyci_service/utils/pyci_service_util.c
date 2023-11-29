@@ -29,16 +29,16 @@ int replace_headers(ci_request_t *req)
 	{
 		ci_http_response_reset_headers(req); // TODO: Error management
 		addHeader = ci_http_response_add_header;
-	}
-	else
-	{
-		goto replace_headers_ignore;
+	} else {
+		// Not REQMOD and RESPMOD
+		pyci_debug_printf(PYCI_ERROR_LEVEL, "Request type is not REQMOD or RESPMOD");
+		return CI_SERVICE_ERROR;
 	}
 
-	PyObject *pInstance = (PyObject *)ci_service_data(req);						  // Don't decref
+	PyObject *pInstance = (PyObject *)ci_service_data(req); // Don't decref
 	PyObject *pList = PyObject_GetAttrString(pInstance, PYCI_CLASS_LIST_HEADERS); // DECREF ME
 
-	if (pList && PyList_Check(pList))
+	if (pList != NULL && PyList_Check(pList))
 	{
 		PyObject *pHeader = NULL;
 		char *header = NULL;
@@ -55,11 +55,9 @@ int replace_headers(ci_request_t *req)
 			else
 			{
 				pyci_debug_printf(PYCI_MESSAGE_LEVEL, "http headers replacing must be string. ignoring...");
-				goto replace_headers_ignore;
 			}
 		}
 	}
-replace_headers_ignore:
 	Py_XDECREF(pList);
 	return 0;
 }
