@@ -70,9 +70,9 @@ cleanflow:
 DOXYGEN := doxygen
 DOXYFILE := c-icap-python.doxyfile
 DOXYGEN_TARGET_SRC := $(SRCDIR)
-DOXYGEN_TARGET := doc
+DOXYGEN_TARGET_DIR := doc
 
-install: $(TARGET)
+install: $(DOXYGEN_TARGET)
 
 .PHONY: doc
 doc: $(DOXYGEN_TARGET_SRC) $(DOXYFILE)
@@ -80,21 +80,28 @@ doc: $(DOXYGEN_TARGET_SRC) $(DOXYFILE)
 
 .PHONY: cleandoc
 cleandoc:
-	$(RMDIR) $(DOXYGEN_TARGET)
+	$(RMDIR) $(DOXYGEN_TARGET_DIR)
 
 #apt install docker-ce
+DOCKER := docker
+DOCKER_IMAGE := c-icap-python
 
 .PHONY: docker
 docker: Dockerfile
 	make cleanall
-	docker build . -t c-icap-python --build-arg pv=$(PYTHON_VERSION)
-	yes | docker system prune
+	$(DOCKER) build . -f $< -t $(DOCKER_IMAGE) --build-arg pv=$(PYTHON_VERSION)
 
+
+
+.PHONY: cleandocker
+cleandocker:
+	$(DOCKER) rm -f $(DOCKER_IMAGE)
+	yes | $(DOCKER) system prune
 
 # ALL
-
 .PHONY: cleanall
 cleanall:
 	make clean
 	make cleanflow
 	make cleandoc
+	make cleandocker
