@@ -5,8 +5,8 @@
 # apt install python{2,3}-dev libicapapi-dev libssl-dev
 
 # DEFINE VARIABLES
-#PYTHON_VERSION = 3
-PYTHON_VERSION = 2
+PYTHON_VERSION = 3
+#PYTHON_VERSION = 2
 DEBUG = 0
 CC = gcc
 RM = rm -f

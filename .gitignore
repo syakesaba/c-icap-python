@@ -19,3 +19,4 @@ trash/
 bin/
 .vscode/
 *.gch
+temp/
