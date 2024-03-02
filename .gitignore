@@ -20,3 +20,4 @@ bin/
 .vscode/
 *.gch
 temp/
+libpython_test/run

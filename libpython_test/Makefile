@@ -12,13 +12,11 @@ CC = gcc
 RM = rm -f
 RMDIR = rm -rf
 SRCDIR = src
-INCDIR = include
 
 # DEFINE VARIABLE SET
 SRCS = $(shell find $(SRCDIR) -type f -name "*.c")
 OBJS = $(SRCS:.c=.o)
 DEFS = -DPYTHON_VERSION=$(PYTHON_VERSION) -DDEBUG=$(DEBUG)
-INCS = -I$(INCDIR)
 
 # PYTHON VERSION 2 OR 3
 ifeq ($(PYTHON_VERSION),2)
@@ -30,10 +28,10 @@ endif
 
 # COMPILE FLAGS
 PYTHON_CFLAGS = $(shell $(PYTHON_CONFIG) --cflags)
-PYTHON_LDFLAGS = $(shell $(PYTHON_CONFIG) --ldflags)
+PYTHON_LDFLAGS = $(shell $(PYTHON_CONFIG) --embed --ldflags)
 C_ICAP_CFLAGS = $(shell c-icap-libicapapi-config --cflags)
 C_ICAP_LDLAGS = $(shell c-icap-libicapapi-config --libs)
-CFLAGS = $(PYTHON_CFLAGS) $(C_ICAP_CFLAGS) $(INCS) $(DEFS) -O4 -Wall
+CFLAGS = $(PYTHON_CFLAGS) $(C_ICAP_CFLAGS) $(DEFS) -O4 -Wall
 LDFLAGS = $(PYTHON_LDFLAGS) $(C_ICAP_LDLAGS)
 
 # SHARED OBJECT NAME

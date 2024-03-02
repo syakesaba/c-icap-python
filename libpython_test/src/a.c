@@ -2,6 +2,10 @@
 #include <c_icap/service.h>
 
 int main(void) {
-    printf("a");
+    if (!Py_IsInitialized()) {
+    	Py_Initialize();
+    }
+    
+    printf("%d", CI_MOD_ERROR);
     return 0;
 }
